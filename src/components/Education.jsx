@@ -137,15 +137,13 @@ function Education({ educations, setEducations }) {
                     <h2>Education</h2>
                     <button onClick={handleEdit}>Edit</button>
                 </div>
-                {educations.map((edu, index) => (
-                    <div key={index}>
-                        <h3>{edu.degree}</h3>
-                        <p>{edu.institution}</p>
-                        {edu.dateStart && edu.dateEnd && (
-                            <p>From {edu.dateStart} to {edu.dateEnd}</p>
-                        )}
-                    </div>
-                ))}
+                {educations.map((edu, index) => (<div className="education" key={index}>
+                    <h3>{edu.degree}</h3>
+                    <p>{edu.institution}</p>
+                    {edu.dateStart && edu.dateEnd && (
+                        <p>From {edu.dateStart} to {edu.dateEnd}</p>
+                    )}
+                </div>))}
             </section>) : (<>
                 <div className="cv-section-header">
                     <h2>Education</h2>

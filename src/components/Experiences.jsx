@@ -124,9 +124,9 @@ function Experiences({ experiences, setExperiences }) {
 
                 {experiences.length > 0 && (<div>
                     <h2>Added Experiences</h2>
-                    {experiences.map((exp, index) => (<div key={index}>
-                        <p>{exp.companyName}</p>
-                        <p>{exp.position}</p>
+                    {experiences.map((exp, index) => (<div className="experience" key={index}>
+                        <h3>{exp.position}</h3>
+                        <p>At {exp.companyName}</p>
                         <p>{exp.responsabilities}</p>
                         {exp.dateStart && exp.dateEnd && (
                             <p>From {exp.dateStart} to {exp.dateEnd}</p>
@@ -145,7 +145,7 @@ function Experiences({ experiences, setExperiences }) {
             </div>
             <div>
                 {experiences.length > 0 ? (
-                    experiences.map((exp, index) => (<div key={index}>
+                    experiences.map((exp, index) => (<div className="experience" key={index}>
                         <h3>{exp.position}</h3>
                         <p>At {exp.companyName}</p>
                         <p>{exp.responsabilities}</p>
