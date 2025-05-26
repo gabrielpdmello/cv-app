@@ -10,8 +10,8 @@ function Editor() {
     const [experiences, setExperiences] = useState([]);
     
     return (
-        <div>
-            <h1>CV Editor</h1>
+        <div className="editor">
+            <h1 className="editor-title">CV Editor</h1>
             <GeneralInfo/>
             <Education
                 educations={educations}

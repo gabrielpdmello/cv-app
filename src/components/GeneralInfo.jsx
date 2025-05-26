@@ -7,7 +7,8 @@ function GeneralInfo() {
     const [generalInfo, setGeneralInfo] = useState({
         name: "Joe",
         email: "joe@email.com",
-        tel: "123456789"
+        tel: "123456789",
+        address: "123 street, city, country"
     });
 
     function handleSubmit(e) {
@@ -16,7 +17,7 @@ function GeneralInfo() {
     }
 
     function handleChange(e) {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setGeneralInfo({
             ...generalInfo,
             [name]: value
@@ -24,48 +25,71 @@ function GeneralInfo() {
     }
 
     function handleEdit() {
-       setIsEditing(true);
+        setIsEditing(true);
     }
 
-    return ( 
-    <section>
-        <h2>General Information</h2>
-        {isEditing ? (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="name">Name:</label>
-            <input 
-                type="text"
-                id="name"
-                value={generalInfo.name}
-                name="name"
-                onChange= {handleChange}
-            />
-            <label htmlFor="email">email:</label>
-            <input
-                type="email"
-                id="email"
-                value={generalInfo.email}
-                name="email"
-                onChange= {handleChange}
-            />
-            <label htmlFor="phone">phone:</label>
-            <input
-                type="tel"
-                id="phone"
-                value={generalInfo.tel}
-                name="tel"
-                onChange= {handleChange}
-            />
-            <button type="submit">Save</button>
-        </form>) : (
+    return (
         <>
-            <h1>{generalInfo.name}</h1>
-            <p>{generalInfo.email}</p>
-            <p>{generalInfo.tel}</p>
-            <button onClick={handleEdit}>Edit</button>
+            {isEditing ? (<section>
+                <form onSubmit={handleSubmit}>
+                    <div className="cv-section-header">
+                        <h2>General Information</h2>
+                        <button type="submit">Save</button>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="name">Name:</label>
+                        <input
+                            type="text"
+                            id="name"
+                            value={generalInfo.name}
+                            name="name"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="row">
+                        <div className="form-group">
+                            <label htmlFor="email">Email:</label>
+                            <input
+                                type="email"
+                                id="email"
+                                value={generalInfo.email}
+                                name="email"
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="phone">Phone Number:</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                value={generalInfo.tel}
+                                name="tel"
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="address">Address:</label>
+                        <input
+                            type="text"
+                            id="address"
+                            value={generalInfo.address}
+                            name="address"
+                            onChange={handleChange}
+                        />
+                    </div>
+                </form></section>) : (
+                <section>
+                    <div className="cv-section-header">
+                        <h2>General Information</h2>
+                        <button onClick={handleEdit}>Edit</button>
+                    </div>
+                    <h2>{generalInfo.name}</h2>
+                    <p>{generalInfo.email} / {generalInfo.tel}</p>
+                    <p>{generalInfo.address}</p>
+                </section>
+            )}
         </>
-        )}
-    </section>
     )
 }
 

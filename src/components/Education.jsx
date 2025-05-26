@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Education({educations, setEducations}) {
+function Education({ educations, setEducations }) {
     const [isEditing, setIsEditing] = useState(true);
 
     const [educationInfo, setEducationInfo] = useState(
@@ -18,7 +18,7 @@ function Education({educations, setEducations}) {
     };
 
     function handleChange(e) {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setEducationInfo({
             ...educationInfo,
             [name]: value
@@ -26,7 +26,7 @@ function Education({educations, setEducations}) {
     };
 
     function handleEdit() {
-       setIsEditing(true);
+        setIsEditing(true);
     };
 
     function handleAddEducation(e) {
@@ -49,7 +49,7 @@ function Education({educations, setEducations}) {
     };
 
     function handleEditEducation(index) {
-        const edu = {...educations[index]};
+        const edu = { ...educations[index] };
         setEducationInfo({
             institution: edu.institution,
             degree: edu.degree,
@@ -59,85 +59,102 @@ function Education({educations, setEducations}) {
         handleRemoveEducation(index);
     }
 
-    return ( 
-    <section>
-        <h2>Education</h2>
-        {isEditing ? (
-        <form onSubmit={handleAddEducation}>
-            <label htmlFor="institution">School / University:</label>
-            <input 
-                type="text"
-                id="institution"
-                value={educationInfo.institution}
-                name="institution"
-                onChange= {handleChange}
-                required
-            />
-            <label htmlFor="degree">Degree:</label>
-            <input
-                type="text"
-                id="degree"
-                value={educationInfo.degree}
-                name="degree"
-                onChange= {handleChange}
-                required
-            />
-            <label htmlFor="dateStart">Start date:</label>
-            <input
-                type="date"
-                id="dateStart"
-                value={educationInfo.dateStart}
-                name="dateStart"
-                onChange= {handleChange}
-            />
-            <label htmlFor="dateEnd">End date:</label>
-            <input
-                type="date"
-                id="dateEnd"
-                value={educationInfo.dateEnd}
-                name="dateEnd"
-                onChange= {handleChange}
-            />
-            <button type="submit">Add Education</button>
-            <button onClick={handleSubmit}>Save</button>
-
-            {educations.length > 0 && (
-                <div>
-                    <h2>Added Educations</h2>
-                    {educations.map((edu, index) => (
-                        <div key={index}>
-                            <p>{edu.degree}</p>
-                            <p>{edu.institution}</p>
-                            {edu.dateStart && edu.dateEnd && (
-                                <p>{edu.dateStart} to {edu.dateEnd}</p>
-                            )}
-                            <button onClick={() => handleRemoveEducation(index)}>Remove</button>
-                            <button onClick={() => handleEditEducation(index)}>Edit Education</button>
-                        </div>
-                    ))}
+    return (<>
+        {isEditing ? (<section>
+            <form onSubmit={handleAddEducation}>
+                <div className="cv-section-header">
+                    <h2>Education</h2>
+                    <button onClick={handleSubmit}>Save</button>
                 </div>
-            )}
-        </form>) : (
-        <div>
-            {educations.length > 0 ? (
-                educations.map((edu, index) => (
+                <div className="form-group">
+                    <label htmlFor="institution">School / University:</label>
+                    <input
+                        type="text"
+                        id="institution"
+                        value={educationInfo.institution}
+                        name="institution"
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="degree">Degree:</label>
+                    <input
+                        type="text"
+                        id="degree"
+                        value={educationInfo.degree}
+                        name="degree"
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="row">
+                    <div className="form-group">
+                        <label htmlFor="dateStart">Start date:</label>
+                        <input
+                            type="date"
+                            id="dateStart"
+                            value={educationInfo.dateStart}
+                            name="dateStart"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="dateEnd">End date:</label>
+                        <input
+                            type="date"
+                            id="dateEnd"
+                            value={educationInfo.dateEnd}
+                            name="dateEnd"
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
+                <button type="submit">Add Education</button>
+
+                {educations.length > 0 && (
+                    <div>
+                        <h2>Added Educations</h2>
+                        {educations.map((edu, index) => (
+                            <div className="education" key={index}>
+                                <h3>{edu.degree}</h3>
+                                <p>{edu.institution}</p>
+                                {edu.dateStart && edu.dateEnd && (
+                                    <p>From {edu.dateStart} to {edu.dateEnd}</p>
+                                )}
+                                <div className="button-wrapper">
+                                    <button onClick={() => handleRemoveEducation(index)}>Remove</button>
+                                    <button onClick={() => handleEditEducation(index)}>Edit Education</button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </form>
+        </section>) : (<section>
+            {educations.length > 0 ? (<section>
+                <div className="cv-section-header">
+                    <h2>Education</h2>
+                    <button onClick={handleEdit}>Edit</button>
+                </div>
+                {educations.map((edu, index) => (
                     <div key={index}>
-                        <p>{edu.degree}</p>
+                        <h3>{edu.degree}</h3>
                         <p>{edu.institution}</p>
                         {edu.dateStart && edu.dateEnd && (
-                            <p>{edu.dateStart} to {edu.dateEnd}</p>
+                            <p>From {edu.dateStart} to {edu.dateEnd}</p>
                         )}
                     </div>
-                ))
-            ) : (
+                ))}
+            </section>) : (<>
+                <div className="cv-section-header">
+                    <h2>Education</h2>
+                    <button onClick={handleEdit}>Edit</button>
+                </div>
                 <p>No education information given.</p>
-            )}
-            
-            <button onClick={handleEdit}>Edit</button>
-        </div>
-        )}
-    </section>
-    )
+            </>)}
+        </section>)}
+    </>)
 }
 
 export default Education
